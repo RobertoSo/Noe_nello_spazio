@@ -26,7 +26,7 @@ public class GameController : MonoBehaviour
         index++;
     }
 
-    public void GetEnemy(GameObject playerGameobject)
+    public GameObject GetEnemy(GameObject playerGameobject)
     {
         if(playerGameobject != playerTrace[0])
         {
@@ -36,5 +36,6 @@ public class GameController : MonoBehaviour
         {
             enemy = playerTrace[1];
         }
+        return enemy;
     }
 }

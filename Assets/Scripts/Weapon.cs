@@ -6,13 +6,14 @@ public class Weapon : MonoBehaviour
 {
     public GameObject bullPrefab;
     public GameObject hedgehogPrefab;
-    public GameObject cheetaPrefab;
-    public GameObject giraffePrefab;
+    //public GameObject cheetaPrefab;
+    //public GameObject giraffePrefab;
     public GameObject turtlePrefab;
-    public float bullAccelForce;
+    //public float bullAccelForce;
+    public float bullLerpTime;
 
-    private List<GameObject> shooted;
-    private GameObject obj;
+    public List<GameObject> shooted;
+    //private GameObject obj;
 
     enum weapons
     {
@@ -34,18 +35,18 @@ public class Weapon : MonoBehaviour
 
     }
 
-    public void bullWeapon(Transform transform)
+    public void bullWeapon(Transform playerPos, Transform enemyPos)
     {
-
-        obj = Instantiate(bullPrefab, transform.position, Quaternion.identity) as GameObject;
+        GameObject obj = Instantiate(bullPrefab, transform.position, Quaternion.identity) as GameObject;
         shooted.Add(obj);
         //obj.GetComponent<Rigidbody>().AddForce(bullAccelForce * Vector3.forward, ForceMode.Acceleration);
-        obj.transform.position = Vector3.Lerp()
+       
     }
 
-    public void hedgehogWeapon()
+    IEnumerator bullPath()
     {
-
+        shooted[0].transform.position = Vector3.Lerp(transform.position, enemyPos.position, bullLerpTime * Time.deltaTime);
+        yield return null;
     }
 
     public void cheetaWeapon()
