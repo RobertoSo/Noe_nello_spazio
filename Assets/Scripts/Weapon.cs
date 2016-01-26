@@ -39,7 +39,8 @@ public class Weapon : MonoBehaviour
 
         obj = Instantiate(bullPrefab, transform.position, Quaternion.identity) as GameObject;
         shooted.Add(obj);
-        obj.GetComponent<Rigidbody>().AddForce(bullAccelForce * Vector3.forward, ForceMode.Acceleration);
+        //obj.GetComponent<Rigidbody>().AddForce(bullAccelForce * Vector3.forward, ForceMode.Acceleration);
+        obj.transform.position = Vector3.Lerp()
     }
 
     public void hedgehogWeapon()
