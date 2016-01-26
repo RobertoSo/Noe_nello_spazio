@@ -40,13 +40,16 @@ public class Weapon : MonoBehaviour
         GameObject obj = Instantiate(bullPrefab, transform.position, Quaternion.identity) as GameObject;
         shooted.Add(obj);
         //obj.GetComponent<Rigidbody>().AddForce(bullAccelForce * Vector3.forward, ForceMode.Acceleration);
-       
+        StartCoroutine(bullPath(enemyPos));
     }
 
-    IEnumerator bullPath()
+    private IEnumerator bullPath(Transform enemyPos)
     {
-        shooted[0].transform.position = Vector3.Lerp(transform.position, enemyPos.position, bullLerpTime * Time.deltaTime);
-        yield return null;
+        while (true)
+        {
+            shooted[0].transform.position = Vector3.Lerp(transform.position, enemyPos.position, bullLerpTime * Time.deltaTime);
+            yield return null;
+        }
     }
 
     public void cheetaWeapon()

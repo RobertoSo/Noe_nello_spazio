@@ -14,19 +14,19 @@ public class PlayerController : MonoBehaviour
     private GameObject[] projectiles;
     private float timer;
     private float timerProjectileKill;
-    private Weapon weapon;
-    private GameController gameController;
+    public Weapon weapon;
+    public GameController gameController;
     private GameObject enemyGameobject;
 
 
     void Awake()
     {
-        weapon = new Weapon();
+        
     }
 	// Use this for initialization
 	void Start ()
     {
-        weapon = gameObject.GetComponent<Weapon>();
+        weapon = this.gameObject.GetComponent<Weapon>();
         projectiles = new GameObject[projectileSpawnPoint.Length];
         gameController = Camera.main.GetComponent<GameController>();
         gameController.playerAdd(this.gameObject);
