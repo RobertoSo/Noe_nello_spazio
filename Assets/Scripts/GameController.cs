@@ -5,8 +5,9 @@ public class GameController : MonoBehaviour
 {
     
     public GameObject[] playerTrace = new GameObject[2];
-    public GameObject enemy;
+    public GameObject enemy ;
     private int index = 0;
+    
 
 	// Use this for initialization
 	void Start ()
@@ -28,13 +29,13 @@ public class GameController : MonoBehaviour
 
     public GameObject GetEnemy(GameObject playerGameobject)
     {
-        if(playerGameobject != playerTrace[0])
+        if(playerGameobject.CompareTag("PlayerOne"))
         {
-            enemy = playerTrace[0];
+            enemy = playerTrace[1];
         }
         else
         {
-            enemy = playerTrace[1];
+            enemy = playerTrace[0];
         }
         return enemy;
     }

@@ -16,7 +16,7 @@ public class PlayerController : MonoBehaviour
     private float timerProjectileKill;
     public Weapon weapon;
     public GameController gameController;
-    private GameObject enemyGameobject;
+    public GameObject enemyGameobject;
 
 
     void Awake()
@@ -26,11 +26,12 @@ public class PlayerController : MonoBehaviour
 	// Use this for initialization
 	void Start ()
     {
-        weapon = this.gameObject.GetComponent<Weapon>();
-        projectiles = new GameObject[projectileSpawnPoint.Length];
         gameController = Camera.main.GetComponent<GameController>();
         gameController.playerAdd(this.gameObject);
-        enemyGameobject =  gameController.GetEnemy(this.gameObject);
+        //weapon = this.gameObject.GetComponent<Weapon>();
+        projectiles = new GameObject[projectileSpawnPoint.Length];
+        WhoIsEnemy(this.gameObject);
+        //enemyGameobject =  gameController.GetEnemy(this.gameObject);
     }
 	
 	// Update is called once per frame
@@ -45,30 +46,34 @@ public class PlayerController : MonoBehaviour
 
     private void FirstShipMovement()
     {
-        if (Input.GetKey(KeyCode.W))
+        if (this.gameObject.CompareTag("PlayerOne"))
         {
-            Quaternion rotationUp = Quaternion.Euler(0, 90, 0);
-            transform.rotation = Quaternion.Lerp(transform.rotation, rotationUp, TimeToRotate * Time.time);
-            transform.Translate(Vector3.forward * movementSpeed * Time.deltaTime);
+            if (Input.GetKey(KeyCode.W))
+            {
+                Quaternion rotationUp = Quaternion.Euler(0, 90, 0);
+                transform.rotation = Quaternion.Lerp(transform.rotation, rotationUp, TimeToRotate * Time.time);
+                transform.Translate(Vector3.forward * movementSpeed * Time.deltaTime);
+            }
+            if (Input.GetKey(KeyCode.S))
+            {
+                Quaternion rotationDown = Quaternion.Euler(0, -90, 0);
+                transform.rotation = Quaternion.Lerp(transform.rotation, rotationDown, TimeToRotate * Time.time);
+                transform.Translate(Vector3.forward * movementSpeed * Time.deltaTime);
+            }
+            if (Input.GetKey(KeyCode.D))
+            {
+                Quaternion rotationLeft = Quaternion.Euler(0, 180, 0);
+                transform.rotation = Quaternion.Lerp(transform.rotation, rotationLeft, TimeToRotate * Time.time);
+                transform.Translate(Vector3.forward * movementSpeed * Time.deltaTime);
+            }
+            if (Input.GetKey(KeyCode.A))
+            {
+                Quaternion rotationRight = Quaternion.Euler(0, 0, 0);
+                transform.rotation = Quaternion.Lerp(transform.rotation, rotationRight, TimeToRotate * Time.time);
+                transform.Translate(Vector3.forward * movementSpeed * Time.deltaTime);
+            }
         }
-        if (Input.GetKey(KeyCode.S))
-        {
-            Quaternion rotationDown = Quaternion.Euler(0, -90, 0);
-            transform.rotation = Quaternion.Lerp(transform.rotation, rotationDown, TimeToRotate * Time.time);
-            transform.Translate(Vector3.forward * movementSpeed * Time.deltaTime);
-        }
-        if (Input.GetKey(KeyCode.D))
-        {
-            Quaternion rotationLeft = Quaternion.Euler(0, 180, 0);
-            transform.rotation = Quaternion.Lerp(transform.rotation, rotationLeft, TimeToRotate * Time.time);
-            transform.Translate(Vector3.forward * movementSpeed * Time.deltaTime);
-        }
-        if (Input.GetKey(KeyCode.A))
-        {
-            Quaternion rotationRight = Quaternion.Euler(0, 0, 0);
-            transform.rotation = Quaternion.Lerp(transform.rotation, rotationRight, TimeToRotate * Time.time);
-            transform.Translate(Vector3.forward * movementSpeed * Time.deltaTime);
-        }
+       
     }
     private void SecondShipMovement()
     {
@@ -104,8 +109,13 @@ public class PlayerController : MonoBehaviour
     {
         if(this.gameObject.CompareTag("PlayerOne"))
         {
+            weapon = this.gameObject.GetComponent<Weapon>();
+            //gameController = Camera.main.GetComponent<GameController>();
             if (Input.GetKeyDown(KeyCode.Space))
             {
+                Debug.Log(weapon);
+                Debug.Log(gameController);
+                Debug.Log(enemyGameobject);
                 weapon.bullWeapon(projectileSpawnPoint[3], enemyGameobject.transform);
             }
         }
@@ -129,5 +139,17 @@ public class PlayerController : MonoBehaviour
             {
                 Destroy(projectiles[i], timeToKill);
             }
+    }
+
+    private void WhoIsEnemy(GameObject obj)
+    {
+        if (obj.CompareTag("PlayerOne"))
+        {
+            enemyGameobject = GameObject.FindGameObjectWithTag("PlayerTwo");
+        }
+        else
+        {
+            enemyGameobject = GameObject.FindGameObjectWithTag("PlayerOne");
+        }
     }
 }
