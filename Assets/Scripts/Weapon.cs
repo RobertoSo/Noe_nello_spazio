@@ -8,7 +8,10 @@ public class Weapon : MonoBehaviour
     public GameObject hedgehogPrefab;
     public GameObject turtlePrefab;
     public float bullLerpTime;
+    public PlayerController playerController;
     public Transform[] projectileSpawnPoint;
+    public float bullTimeToDestroy;
+
     private GameObject[] projectiles;
     private float timer;
     private float timerProjectileKill;
@@ -35,7 +38,7 @@ public class Weapon : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        ProjectileKill();
+        HedgehogProjectileKill();
     }
 
     public void bullWeapon(Transform playerPos, Transform enemyPos)
@@ -67,12 +70,19 @@ public class Weapon : MonoBehaviour
             projectile.GetComponent<Rigidbody>().AddRelativeForce(shootForce * relativeShootDir, ForceMode.Impulse);
         }
     }
-    private void ProjectileKill()
+    private void HedgehogProjectileKill()
     {
         for (int i = 0; i < projectiles.Length; i++)
         {
             Destroy(projectiles[i], timeToKill);
         }
+    }
+
+    private void BullProjectileKill()
+    {
+        StopAllCoroutines();
+        Destroy(shooted[0], bullTimeToDestroy);
+        shooted.Remove(pro);
     }
 
    

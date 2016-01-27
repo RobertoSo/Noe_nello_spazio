@@ -11,9 +11,12 @@ public class PlayerController : MonoBehaviour
     public GameController gameController;
     public GameObject enemyGameobject;
     private int myWeapon;
+    
 
-    private bool bullWeapon;
-    private bool turtleWeapon;
+    private bool bullWeapon = false;
+    private bool turtleWeapon = false;
+    private bool hedgehogWeapon = true;
+    private bool shootedPickupWeapon = false;
 
 
     public int ScoreForAnimal;
@@ -33,6 +36,7 @@ public class PlayerController : MonoBehaviour
         weapon = this.gameObject.GetComponent<Weapon>();
         WhoIsEnemy(this.gameObject);
         //enemyGameobject =  gameController.GetEnemy(this.gameObject);
+        
     }
 	
 	// Update is called once per frame
@@ -140,11 +144,23 @@ public class PlayerController : MonoBehaviour
         {
             if (Input.GetKeyDown(KeyCode.Space))
             {
-                /* Debug.Log(weapon);
-                 Debug.Log(gameController);
-                 Debug.Log(enemyGameobject);
-                 weapon.bullWeapon(weapon.projectileSpawnPoint[3], enemyGameobject.transform);*/
-                weapon.turtleWeapon();
+                if ((bullWeapon) && (!hedgehogWeapon))
+                {
+                    weapon.bullWeapon(weapon.projectileSpawnPoint[2], enemyGameobject.transform);
+                    bullWeapon = false;
+                    hedgehogWeapon = true;
+                }
+                else if((turtleWeapon)&& (!hedgehogWeapon))
+                {
+                    weapon.turtleWeapon();
+                    turtleWeapon = false;
+                    hedgehogWeapon = true;
+                }
+                else
+                {
+                    weapon.hedgehogWeapon();
+                }
+                
             }
         }
         
@@ -197,17 +213,22 @@ public class PlayerController : MonoBehaviour
     {
         if (coll.gameObject.tag == "Bull" && gameObject.tag == "PlayerOne")
         {
-
+            hedgehogWeapon = false;
+            bullWeapon = true;
             AnimalPickedUpOne = true;
             Destroy(coll.gameObject);
         }
         if (coll.gameObject.tag == "Turtle" && gameObject.tag == "PlayerOne")
         {
+            hedgehogWeapon = false;
+            turtleWeapon = true;
             AnimalPickedUpOne = true;
             Destroy(coll.gameObject);
         }
         if (coll.gameObject.tag == "Bull" && gameObject.tag == "PlayerTwo")
         {
+            hedgehogWeapon = false;
+            bullWeapon = true;
             AnimalPickedUpTwo = true;
             Destroy(coll.gameObject);
         }
@@ -215,6 +236,8 @@ public class PlayerController : MonoBehaviour
 
         if (coll.gameObject.tag == "Turtle" && gameObject.tag == "PlayerTwo")
         {
+            hedgehogWeapon = false;
+            turtleWeapon = true;
             AnimalPickedUpTwo = true;
             Destroy(coll.gameObject);
         }
@@ -229,5 +252,10 @@ public class PlayerController : MonoBehaviour
             GameController.ScorePlayerTwo += ScoreForAnimal;
 
         }
+    }
+
+    private void isPickupWeaponShooted()
+    {
+
     }
 }
