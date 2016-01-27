@@ -11,6 +11,8 @@ public class PlayerController : MonoBehaviour
     public GameController gameController;
     public GameObject enemyGameobject;
     private int myWeapon;
+    private bool bullWeapon;
+    private bool turtleWeapon;
 
     void Awake()
     {
@@ -108,7 +110,7 @@ public class PlayerController : MonoBehaviour
                  Debug.Log(gameController);
                  Debug.Log(enemyGameobject);
                  weapon.bullWeapon(weapon.projectileSpawnPoint[3], enemyGameobject.transform);*/
-                weapon.hedgehogWeapon();
+                weapon.turtleWeapon();
             }
         }
         
@@ -138,9 +140,19 @@ public class PlayerController : MonoBehaviour
             enemyGameobject = GameObject.FindGameObjectWithTag("PlayerOne");
         }
     }
-
-   /* private void MyWeapon()
+    void OnCollisionEnter(Collision coll)
     {
-        if(Input.GetKeyDown(KeyCode.))
-    }*/
+        if (CompareTag("Bull"))
+        {
+
+        }
+    }
+
+    private void MyWeapon()
+    {
+        if (Input.GetKeyDown(KeyCode.Alpha1))
+        {
+
+        }
+    }
 }

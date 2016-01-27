@@ -17,6 +17,7 @@ public class Weapon : MonoBehaviour
     public List<GameObject> shooted;
     public GameObject projectilePrefab;
     public float shootForce;
+    public float turtleShootForce;
     //private GameObject obj;
 
     enum weapons
@@ -74,13 +75,12 @@ public class Weapon : MonoBehaviour
         }
     }
 
-    public void giraffeWeapon()
-    {
-
-    }
+   
     public void turtleWeapon()
     {
-
+        GameObject projectile;
+        projectile = Instantiate(projectilePrefab, projectileSpawnPoint[2].position, Quaternion.identity) as GameObject;
+        projectile.GetComponent<Rigidbody>().AddForce(Vector3.forward * turtleShootForce , ForceMode.Impulse);
     }
 
     /*GameObject projectile;
