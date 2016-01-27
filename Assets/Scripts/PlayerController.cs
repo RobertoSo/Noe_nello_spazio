@@ -11,15 +11,15 @@ public class PlayerController : MonoBehaviour
     public GameController gameController;
     public GameObject enemyGameobject;
     private int myWeapon;
-<<<<<<< HEAD
+
     private bool bullWeapon;
     private bool turtleWeapon;
 
-=======
+
     public int ScoreForAnimal;
     private bool AnimalPickedUpOne;
     private bool AnimalPickedUpTwo;
->>>>>>> origin/master
+
     void Awake()
     {
         
