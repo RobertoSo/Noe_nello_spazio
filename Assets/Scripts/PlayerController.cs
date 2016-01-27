@@ -10,13 +10,14 @@ public class PlayerController : MonoBehaviour
     public GameObject projectilePrefab;
     public Transform[] projectileSpawnPoint;
     public float TimeToRotate;
-
     private GameObject[] projectiles;
     private float timer;
     private float timerProjectileKill;
     public Weapon weapon;
     public GameController gameController;
     public GameObject enemyGameobject;
+    private bool AnimalPickedUp;
+    public int ScoreForAnimal;
 
 
     void Awake()
@@ -42,6 +43,7 @@ public class PlayerController : MonoBehaviour
         PlayerOneShoot();
         PlayerTwoShoot();
         ProjectileKill();
+        Debug.Log(AnimalPickedUp);
 	}
 
     private void FirstShipMovement()
@@ -51,25 +53,25 @@ public class PlayerController : MonoBehaviour
             if (Input.GetKey(KeyCode.W))
             {
                 Quaternion rotationUp = Quaternion.Euler(0, 90, 0);
-                transform.rotation = Quaternion.Lerp(transform.rotation, rotationUp, TimeToRotate * Time.time);
+                transform.rotation = Quaternion.Lerp(transform.rotation, rotationUp, TimeToRotate * Time.deltaTime);
                 transform.Translate(Vector3.forward * movementSpeed * Time.deltaTime);
             }
             if (Input.GetKey(KeyCode.S))
             {
                 Quaternion rotationDown = Quaternion.Euler(0, -90, 0);
-                transform.rotation = Quaternion.Lerp(transform.rotation, rotationDown, TimeToRotate * Time.time);
+                transform.rotation = Quaternion.Lerp(transform.rotation, rotationDown, TimeToRotate * Time.deltaTime);
                 transform.Translate(Vector3.forward * movementSpeed * Time.deltaTime);
             }
             if (Input.GetKey(KeyCode.D))
             {
                 Quaternion rotationLeft = Quaternion.Euler(0, 180, 0);
-                transform.rotation = Quaternion.Lerp(transform.rotation, rotationLeft, TimeToRotate * Time.time);
+                transform.rotation = Quaternion.Lerp(transform.rotation, rotationLeft, TimeToRotate * Time.deltaTime);
                 transform.Translate(Vector3.forward * movementSpeed * Time.deltaTime);
             }
             if (Input.GetKey(KeyCode.A))
             {
                 Quaternion rotationRight = Quaternion.Euler(0, 0, 0);
-                transform.rotation = Quaternion.Lerp(transform.rotation, rotationRight, TimeToRotate * Time.time);
+                transform.rotation = Quaternion.Lerp(transform.rotation, rotationRight, TimeToRotate * Time.deltaTime);
                 transform.Translate(Vector3.forward * movementSpeed * Time.deltaTime);
             }
         }
@@ -82,25 +84,25 @@ public class PlayerController : MonoBehaviour
             if (Input.GetKey(KeyCode.UpArrow))
             {
                 Quaternion rotationUp = Quaternion.Euler(0, 90, 0);
-                transform.rotation = Quaternion.Lerp(transform.rotation, rotationUp, TimeToRotate * Time.time);
+                transform.rotation = Quaternion.Lerp(transform.rotation, rotationUp, TimeToRotate * Time.deltaTime);
                 transform.Translate(Vector3.forward * movementSpeed * Time.deltaTime);
             }
             if (Input.GetKey(KeyCode.DownArrow))
             {
                 Quaternion rotationDown = Quaternion.Euler(0, -90, 0);
-                transform.rotation = Quaternion.Lerp(transform.rotation, rotationDown, TimeToRotate * Time.time);
+                transform.rotation = Quaternion.Lerp(transform.rotation, rotationDown, TimeToRotate * Time.deltaTime);
                 transform.Translate(Vector3.forward * movementSpeed * Time.deltaTime);
             }
             if (Input.GetKey(KeyCode.RightArrow))
             {
                 Quaternion rotationLeft = Quaternion.Euler(0, 180, 0);
-                transform.rotation = Quaternion.Lerp(transform.rotation, rotationLeft, TimeToRotate * Time.time);
+                transform.rotation = Quaternion.Lerp(transform.rotation, rotationLeft, TimeToRotate * Time.deltaTime);
                 transform.Translate(Vector3.forward * movementSpeed * Time.deltaTime);
             }
             if (Input.GetKey(KeyCode.LeftArrow))
             {
                 Quaternion rotationRight = Quaternion.Euler(0, 0, 0);
-                transform.rotation = Quaternion.Lerp(transform.rotation, rotationRight, TimeToRotate * Time.time);
+                transform.rotation = Quaternion.Lerp(transform.rotation, rotationRight, TimeToRotate * Time.deltaTime);
                 transform.Translate(Vector3.forward * movementSpeed * Time.deltaTime);
             }
         }
@@ -151,6 +153,45 @@ public class PlayerController : MonoBehaviour
         else
         {
             enemyGameobject = GameObject.FindGameObjectWithTag("PlayerOne");
+        }
+    }
+    void OnTriggerEnter(Collider coll)
+    {
+        if (coll.gameObject.tag == "Bull" && gameObject.tag == "PlayerOne")
+        {
+
+            AnimalPickedUp = true;
+            Destroy(coll.gameObject);
+        }
+        if (coll.gameObject.tag == "Turtle" && gameObject.tag == "PlayerOne")
+        {
+            AnimalPickedUp = true;
+            AnimalPickedUp = coll.gameObject;
+            Destroy(coll.gameObject);
+        }
+        if (coll.gameObject.tag == "Bull" && gameObject.tag == "PlayerTwo")
+        {
+            AnimalPickedUp = true;
+            AnimalPickedUp = coll.gameObject;
+            Destroy(coll.gameObject);
+        }
+        AnimalPickedUp = true;
+
+        if (coll.gameObject.tag == "Turtle" && gameObject.tag == "PlayerTwo")
+        {
+            AnimalPickedUp = true;
+            AnimalPickedUp = coll.gameObject;
+            Destroy(coll.gameObject);
+        }
+        if (coll.gameObject.tag == "Planet" && AnimalPickedUp == true && gameObject.tag == "PlayerOne")
+        {
+            AnimalPickedUp = false;
+            GameController.ScorePlayerOne += ScoreForAnimal;
+        }
+        if (coll.gameObject.tag == "Planet" && AnimalPickedUp == true && gameObject.tag == "PlayerTwo")
+        {
+            AnimalPickedUp = false;
+            GameController.ScorePlayerTwo += ScoreForAnimal;
         }
     }
 }
