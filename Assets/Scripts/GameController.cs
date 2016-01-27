@@ -16,6 +16,8 @@ public class GameController : MonoBehaviour
     public GameObject animalPowerUp;
     public GameObject[] Animals;
     private GameObject[] AnimalsInScene;
+    public static int ScorePlayerOne;
+    public static int ScorePlayerTwo;
 
 
 
