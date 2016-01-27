@@ -29,7 +29,6 @@ public class GameController : MonoBehaviour
 	void Update ()
     {
         InstantiateEnemy();
-
     }
 	
 

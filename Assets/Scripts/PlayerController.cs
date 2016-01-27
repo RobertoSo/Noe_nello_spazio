@@ -3,21 +3,14 @@ using System.Collections;
 
 public class PlayerController : MonoBehaviour 
 {
-    public float nextShoot;
-    public float timeToKill;
+   
+    
     public float movementSpeed;
-    public float shootForce;
-    public GameObject projectilePrefab;
-    public Transform[] projectileSpawnPoint;
     public float TimeToRotate;
-
-    private GameObject[] projectiles;
-    private float timer;
-    private float timerProjectileKill;
     public Weapon weapon;
     public GameController gameController;
     public GameObject enemyGameobject;
-
+    private int myWeapon;
 
     void Awake()
     {
@@ -28,8 +21,7 @@ public class PlayerController : MonoBehaviour
     {
         gameController = Camera.main.GetComponent<GameController>();
         gameController.playerAdd(this.gameObject);
-        //weapon = this.gameObject.GetComponent<Weapon>();
-        projectiles = new GameObject[projectileSpawnPoint.Length];
+        weapon = this.gameObject.GetComponent<Weapon>();
         WhoIsEnemy(this.gameObject);
         //enemyGameobject =  gameController.GetEnemy(this.gameObject);
     }
@@ -41,7 +33,7 @@ public class PlayerController : MonoBehaviour
         SecondShipMovement();
         PlayerOneShoot();
         PlayerTwoShoot();
-        ProjectileKill();
+        
 	}
 
     private void FirstShipMovement()
@@ -110,14 +102,13 @@ public class PlayerController : MonoBehaviour
     {
         if(this.gameObject.CompareTag("PlayerOne"))
         {
-            weapon = this.gameObject.GetComponent<Weapon>();
-            //gameController = Camera.main.GetComponent<GameController>();
             if (Input.GetKeyDown(KeyCode.Space))
             {
-                Debug.Log(weapon);
-                Debug.Log(gameController);
-                Debug.Log(enemyGameobject);
-                weapon.bullWeapon(projectileSpawnPoint[3], enemyGameobject.transform);
+                /* Debug.Log(weapon);
+                 Debug.Log(gameController);
+                 Debug.Log(enemyGameobject);
+                 weapon.bullWeapon(weapon.projectileSpawnPoint[3], enemyGameobject.transform);*/
+                weapon.hedgehogWeapon();
             }
         }
         
@@ -129,18 +120,12 @@ public class PlayerController : MonoBehaviour
         {
             if (Input.GetKeyDown(KeyCode.KeypadEnter))
             {
-                weapon.bullWeapon(projectileSpawnPoint[3], enemyGameobject.transform);
+                weapon.bullWeapon(weapon.projectileSpawnPoint[3], enemyGameobject.transform);
             }
         }
     }
 
-    private void ProjectileKill()
-    {
-            for(int i = 0 ; i < projectiles.Length; i++)
-            {
-                Destroy(projectiles[i], timeToKill);
-            }
-    }
+    
 
     private void WhoIsEnemy(GameObject obj)
     {
@@ -153,4 +138,9 @@ public class PlayerController : MonoBehaviour
             enemyGameobject = GameObject.FindGameObjectWithTag("PlayerOne");
         }
     }
+
+   /* private void MyWeapon()
+    {
+        if(Input.GetKeyDown(KeyCode.))
+    }*/
 }
