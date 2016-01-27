@@ -77,32 +77,33 @@ public class PlayerController : MonoBehaviour
     }
     private void SecondShipMovement()
     {
-        if (Input.GetKey(KeyCode.UpArrow))
+        if (this.gameObject.CompareTag("PlayerTwo"))
         {
-            Quaternion rotationUp = Quaternion.Euler(0, 90, 0);
-            transform.rotation = Quaternion.Lerp(transform.rotation, rotationUp, TimeToRotate * Time.time);
-            transform.Translate(Vector3.forward * movementSpeed * Time.deltaTime);
+            if (Input.GetKey(KeyCode.UpArrow))
+            {
+                Quaternion rotationUp = Quaternion.Euler(0, 90, 0);
+                transform.rotation = Quaternion.Lerp(transform.rotation, rotationUp, TimeToRotate * Time.time);
+                transform.Translate(Vector3.forward * movementSpeed * Time.deltaTime);
+            }
+            if (Input.GetKey(KeyCode.DownArrow))
+            {
+                Quaternion rotationDown = Quaternion.Euler(0, -90, 0);
+                transform.rotation = Quaternion.Lerp(transform.rotation, rotationDown, TimeToRotate * Time.time);
+                transform.Translate(Vector3.forward * movementSpeed * Time.deltaTime);
+            }
+            if (Input.GetKey(KeyCode.RightArrow))
+            {
+                Quaternion rotationLeft = Quaternion.Euler(0, 180, 0);
+                transform.rotation = Quaternion.Lerp(transform.rotation, rotationLeft, TimeToRotate * Time.time);
+                transform.Translate(Vector3.forward * movementSpeed * Time.deltaTime);
+            }
+            if (Input.GetKey(KeyCode.LeftArrow))
+            {
+                Quaternion rotationRight = Quaternion.Euler(0, 0, 0);
+                transform.rotation = Quaternion.Lerp(transform.rotation, rotationRight, TimeToRotate * Time.time);
+                transform.Translate(Vector3.forward * movementSpeed * Time.deltaTime);
+            }
         }
-        if (Input.GetKey(KeyCode.DownArrow))
-        {
-            Quaternion rotationDown = Quaternion.Euler(0, -90, 0);
-            transform.rotation = Quaternion.Lerp(transform.rotation, rotationDown, TimeToRotate * Time.time);
-            transform.Translate(Vector3.forward * movementSpeed * Time.deltaTime);
-        }
-        if (Input.GetKey(KeyCode.RightArrow))
-        {
-            Quaternion rotationLeft = Quaternion.Euler(0, 180, 0);
-            transform.rotation = Quaternion.Lerp(transform.rotation, rotationLeft, TimeToRotate * Time.time);
-            transform.Translate(Vector3.forward * movementSpeed * Time.deltaTime);
-        }
-        if (Input.GetKey(KeyCode.LeftArrow))
-        {
-            Quaternion rotationRight = Quaternion.Euler(0, 0, 0);
-            transform.rotation = Quaternion.Lerp(transform.rotation, rotationRight, TimeToRotate * Time.time);
-            transform.Translate(Vector3.forward * movementSpeed * Time.deltaTime);
-        }
-
-
     }
 
     private void PlayerOneShoot()
