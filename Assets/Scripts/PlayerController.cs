@@ -11,7 +11,9 @@ public class PlayerController : MonoBehaviour
     public GameController gameController;
     public GameObject enemyGameobject;
     private int myWeapon;
-
+    public int ScoreForAnimal;
+    private bool AnimalPickedUpOne;
+    private bool AnimalPickedUpTwo;
     void Awake()
     {
         
@@ -139,8 +141,44 @@ public class PlayerController : MonoBehaviour
         }
     }
 
-   /* private void MyWeapon()
+    /* private void MyWeapon()
+     {
+         if(Input.GetKeyDown(KeyCode.))
+     }*/
+    void OnTriggerEnter(Collider coll)
     {
-        if(Input.GetKeyDown(KeyCode.))
-    }*/
+        if (coll.gameObject.tag == "Bull" && gameObject.tag == "PlayerOne")
+        {
+
+            AnimalPickedUpOne = true;
+            Destroy(coll.gameObject);
+        }
+        if (coll.gameObject.tag == "Turtle" && gameObject.tag == "PlayerOne")
+        {
+            AnimalPickedUpOne = true;
+            Destroy(coll.gameObject);
+        }
+        if (coll.gameObject.tag == "Bull" && gameObject.tag == "PlayerTwo")
+        {
+            AnimalPickedUpTwo = true;
+            Destroy(coll.gameObject);
+        }
+        AnimalPickedUpTwo = true;
+
+        if (coll.gameObject.tag == "Turtle" && gameObject.tag == "PlayerTwo")
+        {
+            AnimalPickedUpTwo = true;
+            Destroy(coll.gameObject);
+        }
+        if (coll.gameObject.tag == "Planet" && AnimalPickedUpOne == true && gameObject.tag == "PlayerOne")
+        {
+            AnimalPickedUpOne = false;
+            GameController.ScorePlayerOne += ScoreForAnimal;
+        }
+        if (coll.gameObject.tag == "Planet" && AnimalPickedUpTwo == true && gameObject.tag == "PlayerTwo")
+        {
+            AnimalPickedUpTwo = false;
+            GameController.ScorePlayerTwo += ScoreForAnimal;
+        }
+    }
 }
