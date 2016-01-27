@@ -7,10 +7,10 @@ public class GameController : MonoBehaviour
     public GameObject[] playerTrace = new GameObject[2];
     public GameObject enemy ;
     private int index = 0;
-    public float MinimunXAxys;
-    public float MaxXAxys;
-    public float MinYAxys;
-    public float MaxYAxys;
+    public Transform MinX;
+    public Transform MaxX;
+    public Transform MinZ;
+    public Transform MaxZ;
     private bool IsSpawned = false;
     public int MaxNumberOfAnimals;
     //public GameObject animalPowerUp;
@@ -51,7 +51,7 @@ public class GameController : MonoBehaviour
                 GameObject obj;
                 int AnimalToSpawn = Random.Range(0, 2);
 
-                Vector3 PositionToSpawn = new Vector3(Random.Range(MinimunXAxys, MaxXAxys), 0, Random.Range(MinYAxys, MaxYAxys));
+                Vector3 PositionToSpawn = new Vector3(Random.Range(MinX.position.x, MaxX.position.x), 0, Random.Range(MinZ.position.z, MaxZ.position.z));
                 obj = Instantiate(Animals[AnimalToSpawn], PositionToSpawn,Quaternion.identity) as GameObject;
                 AnimalsInScene[i] = obj;
                 animalCounter++;

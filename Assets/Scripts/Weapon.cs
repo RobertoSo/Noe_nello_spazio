@@ -32,6 +32,7 @@ public class Weapon : MonoBehaviour
     // Use this for initialization
     void Start()
     {
+        playerController = GetComponent<PlayerController>();
         projectiles = new GameObject[projectileSpawnPoint.Length];
     }
 
@@ -92,6 +93,8 @@ public class Weapon : MonoBehaviour
         projectile = Instantiate(projectilePrefab, projectileSpawnPoint[2].position, Quaternion.identity) as GameObject;
         projectile.GetComponent<Rigidbody>().AddForce(Vector3.forward * turtleShootForce , ForceMode.Impulse);
     }
+
+  
 
     /*GameObject projectile;
                 for (int i = 0; i<projectileSpawnPoint.Length; i++)

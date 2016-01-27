@@ -11,6 +11,8 @@ public class PlayerController : MonoBehaviour
     public GameController gameController;
     public GameObject enemyGameobject;
     private int myWeapon;
+    public float slowTime;
+    public float slowedShipSpeed;
     
 
     private bool bullWeapon = false;
@@ -23,6 +25,14 @@ public class PlayerController : MonoBehaviour
     private bool AnimalPickedUpOne;
     private bool AnimalPickedUpTwo;
     public float CounterRotation;
+    private float previousSpeed;
+    private float slowTimeCounter;
+    private bool slowed = false;
+
+    public Transform MinX;
+    public Transform MaxX;
+    public Transform MinZ;
+    public Transform MaxZ;
 
     void Awake()
     {
@@ -46,8 +56,10 @@ public class PlayerController : MonoBehaviour
         SecondShipMovement();
         PlayerOneShoot();
         PlayerTwoShoot();
-        
-	}
+        TurtleEffect();
+        transform.position = new Vector3(Mathf.Clamp(transform.position.x, MinX.position.x, MaxX.position.x), 0, Mathf.Clamp(transform.position.z, MinZ.position.z, MaxZ.position.z));
+
+    }
 
     private void FirstShipMovement()
     {
@@ -90,8 +102,10 @@ public class PlayerController : MonoBehaviour
                 }
                 transform.Translate(Vector3.forward * movementSpeed * Time.deltaTime);
             }
+           
         }
-       
+        
+
     }
     private void SecondShipMovement()
     {
@@ -135,7 +149,9 @@ public class PlayerController : MonoBehaviour
                 }
                     transform.Translate(Vector3.forward * movementSpeed * Time.deltaTime);
             }
+            
         }
+        //transform.position = new Vector3(Mathf.Clamp(transform.position.x, MinX.position.x, MaxX.position.x), 0, Mathf.Clamp(transform.position.z, MinZ.position.z, MaxZ.position.z));
     }
 
     private void PlayerOneShoot()
@@ -172,12 +188,25 @@ public class PlayerController : MonoBehaviour
         {
             if (Input.GetKeyDown(KeyCode.KeypadEnter))
             {
-                weapon.bullWeapon(weapon.projectileSpawnPoint[3], enemyGameobject.transform);
+                if ((bullWeapon) && (!hedgehogWeapon))
+                {
+                    weapon.bullWeapon(weapon.projectileSpawnPoint[2], enemyGameobject.transform);
+                    bullWeapon = false;
+                    hedgehogWeapon = true;
+                }
+                else if ((turtleWeapon) && (!hedgehogWeapon))
+                {
+                    weapon.turtleWeapon();
+                    turtleWeapon = false;
+                    hedgehogWeapon = true;
+                }
+                else
+                {
+                    weapon.hedgehogWeapon();
+                }
             }
         }
     }
-
-    
 
     private void WhoIsEnemy(GameObject obj)
     {
@@ -190,25 +219,45 @@ public class PlayerController : MonoBehaviour
             enemyGameobject = GameObject.FindGameObjectWithTag("PlayerOne");
         }
     }
-    void OnCollisionEnter(Collision coll)
+   /* void OnCollisionEnter(Collision coll)
     {
-        if (CompareTag("Bull"))
+        if (CompareTag("PlayerOne"))
         {
-
+            if (CompareTag("Bull"))
+            {
+                AnimalPickedUpOne = false;
+            }
+            if (CompareTag("Turtle"))
+            {
+                slowed = true;
+                AnimalPickedUpOne = false;
+            }
+            if (CompareTag("HedgehogBullet"))
+            {
+                AnimalPickedUpOne = false;
+                Destroy(gameObject);
+            }
         }
-    }
-
-
-    private void MyWeapon()
-    {
+        if (CompareTag("PlayerTwo"))
+        {
+            if (CompareTag("Bull"))
+            {
+                AnimalPickedUpOne = false;
+            }
+            if (CompareTag("Turtle"))
+            {
+                slowed = true;
+                AnimalPickedUpOne = false;
+            }
+            if (CompareTag("HedgehogBullet"))
+            {
+                AnimalPickedUpOne = false;
+                Destroy(coll.gameObject);
+            }
+        }
         
-    }
+    }*/
 
-
-    /* private void MyWeapon()
-     {
-         if(Input.GetKeyDown(KeyCode.))
-     }*/
     void OnTriggerEnter(Collider coll)
     {
         if (coll.gameObject.tag == "Bull" && gameObject.tag == "PlayerOne")
@@ -252,10 +301,63 @@ public class PlayerController : MonoBehaviour
             GameController.ScorePlayerTwo += ScoreForAnimal;
 
         }
+        if (CompareTag("PlayerOne"))
+        {
+            if (CompareTag("Bull"))
+            {
+                AnimalPickedUpOne = false;
+            }
+            if (CompareTag("Turtle"))
+            {
+                slowed = true;
+                AnimalPickedUpOne = false;
+            }
+            if (CompareTag("HedgehogBullet"))
+            {
+                AnimalPickedUpOne = false;
+                Destroy(gameObject);
+            }
+        }
+        if (CompareTag("PlayerTwo"))
+        {
+            if (coll.gameObject.CompareTag("Bull"))
+            {
+                AnimalPickedUpOne = false;
+            }
+            if (coll.gameObject.CompareTag("Turtle"))
+            {
+                slowed = true;
+                AnimalPickedUpOne = false;
+            }
+            if (coll.gameObject.CompareTag("HedgehogBullet"))
+            {
+                AnimalPickedUpOne = false;
+                Destroy(coll.gameObject);
+            }
+        }
     }
 
-    private void isPickupWeaponShooted()
+    private void TurtleEffect()
     {
-
+       
+        if (slowed)
+        {
+            previousSpeed = movementSpeed;
+            if (slowTimeCounter >= slowTime)
+            {
+                movementSpeed = previousSpeed;
+                slowed = false;
+            }
+            
+            else
+            {
+                slowTimeCounter += Time.deltaTime;
+                movementSpeed = slowedShipSpeed;
+            }
+        }
+        
+        
     }
+
+   
 }
