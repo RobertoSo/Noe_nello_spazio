@@ -47,7 +47,7 @@ public class Weapon : MonoBehaviour
     {
         while (true)
         {
-            shooted[0].transform.position = Vector3.Lerp(shooted[0].transform.position, enemyPos.position, bullLerpTime * Time.deltaTime);
+            shooted[0].transform.position = Vector3.Lerp(shooted[0].transform.position, enemyPos.position, bullLerpTime * Time.time);
             yield return null;
         }
         

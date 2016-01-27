@@ -17,6 +17,10 @@ public class GameController : MonoBehaviour
     public GameObject[] Animals;
     private GameObject[] AnimalsInScene;
 
+<<<<<<< HEAD
+
+=======
+>>>>>>> origin/master
 
     // Use this for initialization
     void Start ()
@@ -28,7 +32,11 @@ public class GameController : MonoBehaviour
 	void Update ()
     {
         InstantiateEnemy();
+<<<<<<< HEAD
+    }
+=======
 	}
+>>>>>>> origin/master
 
     public void playerAdd(GameObject playerGameobject)
     {
@@ -36,18 +44,6 @@ public class GameController : MonoBehaviour
         index++;
     }
 
-    public GameObject GetEnemy(GameObject playerGameobject)
-    {
-        if(playerGameobject.CompareTag("PlayerOne"))
-        {
-            enemy = playerTrace[1];
-        }
-        else
-        {
-            enemy = playerTrace[0];
-        }
-        return enemy;
-    }
     public void InstantiateEnemy()
     {
         if (IsSpawned == false)
@@ -67,4 +63,28 @@ public class GameController : MonoBehaviour
             }
         }
     }
+<<<<<<< HEAD
+
+
+=======
+    public void InstantiateEnemy()
+    {
+        if (IsSpawned == false)
+        {
+            for (int i = 0; i < MaxNumberOfAnimals; i++)
+            {
+                GameObject obj;
+                int AnimalToSpawn = Random.Range(0, 1);
+
+                Vector3 PositionToSpawn = new Vector3(Random.Range(MinimunXAxys, MaxXAxys), 0, Random.Range(MinYAxys, MaxYAxys));
+                obj = Instantiate(Animals[AnimalToSpawn], PositionToSpawn, transform.rotation) as GameObject;
+                AnimalsInScene[i] = obj;
+                if (i < 5)
+                {
+                    IsSpawned = true;
+                }
+            }
+        }
+    }
+>>>>>>> origin/master
 }
