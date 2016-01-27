@@ -154,13 +154,13 @@ public class PlayerController : MonoBehaviour
         }
     }
 
-<<<<<<< HEAD
+
     private void MyWeapon()
     {
-        if (Input.GetKeyDown(KeyCode.Alpha1))
-        {
+        
+    }
 
-=======
+
     /* private void MyWeapon()
      {
          if(Input.GetKeyDown(KeyCode.))
@@ -199,7 +199,7 @@ public class PlayerController : MonoBehaviour
         {
             AnimalPickedUpTwo = false;
             GameController.ScorePlayerTwo += ScoreForAnimal;
->>>>>>> origin/master
+
         }
     }
 }
