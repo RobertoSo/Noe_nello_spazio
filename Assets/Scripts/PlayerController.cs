@@ -19,6 +19,7 @@ public class PlayerController : MonoBehaviour
     public int ScoreForAnimal;
     private bool AnimalPickedUpOne;
     private bool AnimalPickedUpTwo;
+    public float CounterRotation;
 
     void Awake()
     {
@@ -51,25 +52,38 @@ public class PlayerController : MonoBehaviour
             if (Input.GetKey(KeyCode.W))
             {
                 Quaternion rotationUp = Quaternion.Euler(0, 90, 0);
-                transform.rotation = Quaternion.Lerp(transform.rotation, rotationUp, TimeToRotate * Time.time);
-                transform.Translate(Vector3.forward * movementSpeed * Time.deltaTime);
+
+                for (float i = 0; i <= 1; i += CounterRotation)
+                {
+                    transform.rotation = Quaternion.Lerp(transform.rotation, rotationUp, i);
+                }
+               transform.Translate(Vector3.forward * movementSpeed * Time.deltaTime);
             }
             if (Input.GetKey(KeyCode.S))
             {
                 Quaternion rotationDown = Quaternion.Euler(0, -90, 0);
-                transform.rotation = Quaternion.Lerp(transform.rotation, rotationDown, TimeToRotate * Time.time);
+                for (float i = 0; i <= 1; i += CounterRotation)
+                {
+                    transform.rotation = Quaternion.Lerp(transform.rotation, rotationDown, i);
+                }
                 transform.Translate(Vector3.forward * movementSpeed * Time.deltaTime);
             }
             if (Input.GetKey(KeyCode.D))
             {
                 Quaternion rotationLeft = Quaternion.Euler(0, 180, 0);
-                transform.rotation = Quaternion.Lerp(transform.rotation, rotationLeft, TimeToRotate * Time.time);
+                for (float i = 0; i <= 1; i += CounterRotation)
+                {
+                    transform.rotation = Quaternion.Lerp(transform.rotation, rotationLeft, i);
+                }
                 transform.Translate(Vector3.forward * movementSpeed * Time.deltaTime);
             }
             if (Input.GetKey(KeyCode.A))
             {
                 Quaternion rotationRight = Quaternion.Euler(0, 0, 0);
-                transform.rotation = Quaternion.Lerp(transform.rotation, rotationRight, TimeToRotate * Time.time);
+                for (float i = 0; i <= 1; i += CounterRotation)
+                {
+                    transform.rotation = Quaternion.Lerp(transform.rotation, rotationRight, i);
+                }
                 transform.Translate(Vector3.forward * movementSpeed * Time.deltaTime);
             }
         }
@@ -79,29 +93,43 @@ public class PlayerController : MonoBehaviour
     {
         if (this.gameObject.CompareTag("PlayerTwo"))
         {
+           
             if (Input.GetKey(KeyCode.UpArrow))
             {
                 Quaternion rotationUp = Quaternion.Euler(0, 90, 0);
-                transform.rotation = Quaternion.Lerp(transform.rotation, rotationUp, TimeToRotate * Time.time);
+
+                for (float i = 0; i <= 1; i += CounterRotation)
+                {
+                    transform.rotation = Quaternion.Lerp(transform.rotation, rotationUp, i);
+                }
                 transform.Translate(Vector3.forward * movementSpeed * Time.deltaTime);
             }
             if (Input.GetKey(KeyCode.DownArrow))
             {
                 Quaternion rotationDown = Quaternion.Euler(0, -90, 0);
-                transform.rotation = Quaternion.Lerp(transform.rotation, rotationDown, TimeToRotate * Time.time);
+                for (float i = 0; i <= 1; i += CounterRotation)
+                {
+                    transform.rotation = Quaternion.Lerp(transform.rotation, rotationDown, i);
+                }
                 transform.Translate(Vector3.forward * movementSpeed * Time.deltaTime);
             }
             if (Input.GetKey(KeyCode.RightArrow))
             {
                 Quaternion rotationLeft = Quaternion.Euler(0, 180, 0);
-                transform.rotation = Quaternion.Lerp(transform.rotation, rotationLeft, TimeToRotate * Time.time);
+                for (float i = 0; i <= 1; i += CounterRotation)
+                {
+                    transform.rotation = Quaternion.Lerp(transform.rotation, rotationLeft, i);
+                }
                 transform.Translate(Vector3.forward * movementSpeed * Time.deltaTime);
             }
             if (Input.GetKey(KeyCode.LeftArrow))
             {
                 Quaternion rotationRight = Quaternion.Euler(0, 0, 0);
-                transform.rotation = Quaternion.Lerp(transform.rotation, rotationRight, TimeToRotate * Time.time);
-                transform.Translate(Vector3.forward * movementSpeed * Time.deltaTime);
+                for (float i = 0; i <= 1; i += CounterRotation)
+                {
+                    transform.rotation = Quaternion.Lerp(transform.rotation, rotationRight,i);
+                }
+                    transform.Translate(Vector3.forward * movementSpeed * Time.deltaTime);
             }
         }
     }
