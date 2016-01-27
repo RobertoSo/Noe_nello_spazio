@@ -82,7 +82,7 @@ public class Weapon : MonoBehaviour
     {
         StopAllCoroutines();
         Destroy(shooted[0], bullTimeToDestroy);
-        shooted.Remove(pro);
+        shooted.Remove(shooted[0]);
     }
 
    
